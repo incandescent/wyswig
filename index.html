@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Wyswig</title>
+    <link href="css/styles.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/reset.css" media="screen" rel="stylesheet" type="text/css" /> 
+  </head>
+  <body>
+    <div class="ui-layout-north">
+      <div id="header">Kuali WysWig</div>
+    </div>
+    <div class="ui-layout-west">
+      <div id="graph"></div>
+    </div>
+    <div class="ui-layout-center">
+      <textarea id="code"><?xml version="1.0"?>
+        <documentTypes>
+          <documentType>
+            <name>ProposalDevelopmentDocument</name>
+            <description>Create an Awesome Development Proposal</description>
+            <label>Proposal Development Document</label>
+            <postProcessorName>org.kuali.rice.kns.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+            <superUserWorkgroupName>KC-WKFLW:OSP Superuser</superUserWorkgroupName>
+            <blanketApproveWorkgroupName>KC-WKFLW:OSP Superuser</blanketApproveWorkgroupName>
+            <defaultExceptionWorkgroupName>KC-WKFLW:ProposalAdmin</defaultExceptionWorkgroupName>
+            <docHandler>${kuali.docHandler.url.prefix}/proposalDevelopmentProposal.do?methodToCall=docHandler</docHandler>
+            <active>true</active>
+            <routePaths>
+              <routePath>
+                <start name="Initiated" nextNode="isHierarchyChild"/>
+                <split name="isHierarchyChild">
+                  <branch name="False">
+                    <requests name="ProposalPersons" nextNode="UnitRouting"/>
+                    <requests name="UnitRouting" nextNode="OSPOfficeRouting"/>
+                    <requests name="OSPOfficeRouting" nextNode="Join"/>
+                  </branch>
+                  <branch name="True">
+                    <requests name="WaitForHierarchyDisposition" nextNode="Join"/>
+                  </branch>
+                </split>
+                <join name="Join"/>
+              </routePath>
+            </routePaths>
+          </documentType>
+        </documentTypes>
+      </textarea>
+    </div>
+    <!-- jquery -->
+  		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+    <!-- libs -->
+    <script type="text/javascript" src="js/libs/CodeMirror/js/codemirror.js"></script>
+	  <script type="text/javascript" src="js/libs/underscore.js"></script>
+	  <script type="text/javascript" src="js/libs/backbone.js"></script>
+		<script type="text/javascript" src="js/libs/graph.js"></script>    
+    <script type="text/javascript" src="js/libs/excanvas.js"></script>
+    <!-- plugins -->
+    <script type="text/javascript" src="js/plugins/jquery.layout.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.jsPlumb-1.2.5-all-min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery.xml2json.js"></script>
+    <!-- wyswig -->
+    <script type="text/javascript" src="js/wyswig/routesview.js"></script>
+    <script type="text/javascript" src="js/wyswig/wyswig.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>

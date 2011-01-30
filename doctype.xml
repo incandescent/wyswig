@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<documentTypes>
+  <documentType>
+    <name>ProposalDevelopmentDocument</name>
+    <description>
+			Create an Awesome Development Proposal
+		</description>
+    <label>Proposal Development Document</label>
+    <parent>KC</parent>
+    <postProcessorName>org.kuali.rice.kns.workflow.postprocessor.KualiPostProcessor</postProcessorName>
+    <superUserWorkgroupName>KC-WKFLW:OSP Superuser</superUserWorkgroupName>
+    <blanketApproveWorkgroupName>KC-WKFLW:OSP Superuser</blanketApproveWorkgroupName>
+    <defaultExceptionWorkgroupName>KC-WKFLW:ProposalAdmin</defaultExceptionWorkgroupName>
+    <docHandler>${kuali.docHandler.url.prefix}/proposalDevelopmentProposal.do?methodToCall=docHandler</docHandler>
+    <active>true</active>
+    <policies>
+      <policy>
+        <name>LOOK_FUTURE</name>
+        <value>true</value>
+      </policy>
+      <policy>
+        <name>INITIATOR_MUST_ROUTE</name>
+        <value>false</value>
+      </policy>
+    </policies>
+    <attributes>
+      <attribute>
+        <name>CopyCustomActionListAttribute</name>
+      </attribute>
+      <attribute>
+        <name>AggregatorSearchAttribute</name>
+      </attribute>
+      <attribute>
+        <name>BudgetCreatorSearchAttribute</name>
+      </attribute>
+      <attribute>
+        <name>NarrativeWriterSearchAttribute</name>
+      </attribute>
+      <attribute>
+        <name>ViewerSearchAttribute</name>
+      </attribute>
+    </attributes>
+    <routingVersion>2</routingVersion>
+    <routePaths>
+      <routePath>
+        <start name="Initiated" nextNode="isHierarchyChild"/>
+        <split name="isHierarchyChild">
+          <branch name="False">
+            <requests name="ProposalPersons" nextNode="UnitRouting"/>
+            <requests name="UnitRouting" nextNode="OSPOfficeRouting"/>
+            <requests name="OSPOfficeRouting" nextNode="Join"/>
+          </branch>
+          <branch name="True">
+            <requests name="WaitForHierarchyDisposition" nextNode="Join"/>
+          </branch>
+        </split>
+        <join name="Join"/>
+      </routePath>
+    </routePaths>
+    <routeNodes>
+      <start name="Initiated">
+        <activationType>P</activationType>
+        <mandatoryRoute>false</mandatoryRoute>
+        <finalApproval>false</finalApproval>
+      </start>
+      <split name="isHierarchyChild">
+        <type>org.kuali.kra.kew.SimpleBooleanSplitNode</type>
+      </split>
+      <role name="ProposalPersons">
+        <qualifierResolver>ProposalPersons-XPathQualifierResolver</qualifierResolver>
+        <activationType>P</activationType>
+        <finalApproval>false</finalApproval>
+      </role>
+      <requests name="UnitRouting">
+        <activationType>P</activationType>
+        <ruleTemplate>UnitApproval</ruleTemplate>
+        <mandatoryRoute>false</mandatoryRoute>
+        <finalApproval>false</finalApproval>
+      </requests>
+      <requests name="OSPOfficeRouting">
+        <activationType>S</activationType>
+        <ruleTemplate>OSPOfficeApproval</ruleTemplate>
+        <mandatoryRoute>false</mandatoryRoute>
+        <finalApproval>true</finalApproval>
+      </requests>
+      <requests name="WaitForHierarchyDisposition">
+        <activationType>S</activationType>
+        <ruleTemplate>HierarchyParentDispositionApproval</ruleTemplate>
+        <mandatoryRoute>true</mandatoryRoute>
+        <ignorePrevious>true</ignorePrevious>
+        <finalApproval>false</finalApproval>
+      </requests>
+      <join name="Join"/>
+    </routeNodes>
+  </documentType>
+</documentTypes>

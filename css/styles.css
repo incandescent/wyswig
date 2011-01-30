@@ -1,0 +1,107 @@
+.vertex { 
+  cursor:pointer;
+  box-shadow: 2px 2px 19px #aaa;
+  -o-box-shadow: 2px 2px 19px #aaa;
+  -webkit-box-shadow: 2px 2px 19px #aaa;
+  -moz-box-shadow: 2px 2px 19px #aaa;
+  border:0.1em dotted #d4e06b; 
+  opacity:0.8; 
+  filter:alpha(opacity=80); 
+  width: 100px;
+  height: 35px;
+  z-index:20; 
+  position:relative; 
+  color:black;
+  float: left;
+  font-family:helvetica, sans;
+  padding-top:0.9em; 
+  font-size:0.9em;
+  text-align:center;
+  background-color:white;
+  margin-right: 20px;
+
+  	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#graph {
+  width: 520px;
+  margin: 0 auto;
+}
+
+.row {
+  margin: 0 auto;
+  position: relative;
+  height: 100px;
+  width: 0px;
+}
+
+.CodeMirror-line-numbers {
+  width: 2.2em;
+  color: #aaa;
+  background-color: #eee;
+  text-align: right;
+  padding-right: .3em;
+  font-size: 10pt;
+  font-family: monospace;
+  padding-top: .4em;
+  line-height: normal;
+}
+
+.ui-layout-north {
+  height: 30px;
+  width: 100%;
+  background-color: #3f769e;
+}
+
+#header {
+  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+.ui-layout-center {
+  float:left;
+  height:95%;
+  width:50%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.ui-layout-west {
+  float:left;
+  height:95%;
+  width:50%;
+  margin: 0px;
+  padding: 0px;
+}
+
+#xmlPane textarea {
+  width: 100%;
+  height: 100%;
+}
+
+/**
+ *	Basic Layout Theme
+ * 
+ *	This theme uses the default layout class-names for all classes
+ *	Add any 'custom class-names', from options: paneClass, resizerClass, togglerClass
+ */
+
+.ui-layout-pane { /* all 'panes' */ 
+	background: #FFF; 
+	border: 1px solid #BBB; 
+	padding: 10px; 
+	overflow: auto;
+} 
+
+.ui-layout-resizer { /* all 'resizer-bars' */ 
+	background: #DDD; 
+} 
+
+.ui-layout-toggler { /* all 'toggler-buttons' */ 
+  background: #AAA; 
+}
